@@ -35,29 +35,29 @@ end
 
 function loadfile_works_like_loadstring_but_it_uses_a_path_and_reads_from_a_file()
   local f = loadfile("test_file.lua")
-  assert_equal(__, type(f))
+  assert_equal("function", type(f))
 
   local person = f()
-  assert_equal(__, person.id)
-  assert_equal(__, person.speak())
+  assert_equal("kikito", person.id)
+  assert_equal("hello there!", person.speak())
 end
 
 function dofile_loads_the_file_and_executes_the_function_directly()
   local person = dofile("test_file.lua")
-  assert_equal(__, person.id)
-  assert_equal(__, person.speak())
+  assert_equal("kikito", person.id)
+  assert_equal("hello there!", person.speak())
   -- it also raises errors if the file isn't found, the path doesn't exist, etc
 end
 
 function package_path_is_a_string_containing_question_mark_dot_lua()
-  assert_equal(__, type(package.path))
-  assert_equal(__, package.path:find('?.lua') ~= nil)
+  assert_equal("string", type(package.path))
+  assert_equal(true, package.path:find('?.lua') ~= nil)
 end
 
 function require_is_like_do_file_but_it_uses_package_path_so_it_doesnt_need_dot_lua_at_the_end_of_path()
   local person = require("test_file")
-  assert_equal(__, person.id)
-  assert_equal(__, person.speak())
+  assert_equal("kikito", person.id)
+  assert_equal("hello there!", person.speak())
   --.note that you can modify package.path so that the files are correctly loaded
 end
 
@@ -65,9 +65,8 @@ function require_loads_the_file_only_once_caching_the_results()
   local person1 = dofile("test_file.lua")
   local person2 = require("test_file")
   local person3 = require("test_file")
-  
-  assert_equal(__, person1 == person2)
-  assert_equal(__,  person2 == person3)
+  assert_equal(false, person1 == person2)
+  assert_equal(true,  person2 == person3)
 end
 
 -- for all this, require is the Prefered Lua Way for requiring files
