@@ -9,6 +9,27 @@
 
 -- INSERT YOUR CODE HERE
 
+function string.starts_with(str, test)
+   local good = true
+   for i = 1, #test do
+      if str[i] ~= test[i] then
+	 good = false
+	 break
+      end
+   end
+   return good
+end
+
+function string.ends_with(str, test)
+   local good = true
+   for i = 1, #test do
+      if str[#str-i+1] ~= test[#test-i+1] then
+	 good = false
+	 break
+      end
+   end
+   return good
+end
 
 -- END OF CODE INSERT
 
